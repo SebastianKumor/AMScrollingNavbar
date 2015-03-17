@@ -244,7 +244,7 @@
                 self.lastContentOffset = 0;
                 self.delayDistance = -self.navbarHeight;
                 [self scrollWithDelta:-self.navbarHeight];
-                [self.view setNeedsLayout];
+                [self.view layoutIfNeeded];
             } completion:^(BOOL finished) {
                 self.panGesture.enabled = YES;
             }];
@@ -280,7 +280,7 @@
         [self scrollWithDelta:delta];
     }
     
-    if ([gesture state] == UIGestureRecognizerStateEnded) {
+    if ([gesture state] == UIGestureRecognizerStateEnded || [gesture state] == UIGestureRecognizerStateCancelled) {
         // Reset the nav bar if the scroll is partial
         [self checkForPartialScroll];
         [self checkForHeaderPartialScroll];
@@ -435,7 +435,7 @@
     NSTimeInterval duration = ABS((self.scrollableHeaderConstraint.constant - self.scrollableHeaderOffset) * 0.2);
     [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.scrollableHeaderConstraint.constant = offset;
-        [self.view setNeedsLayout];
+        [self.view layoutIfNeeded];
     } completion:nil];
 }
 
