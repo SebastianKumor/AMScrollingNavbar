@@ -19,11 +19,11 @@
 {
     [super viewDidLoad];
     
-    [self setTitle:@"Table View"];
+    [self setTitle:@"Collection View"];
     
     [self.collectionView setDelegate:self];
     [self.collectionView setDataSource:self];
-    
+
     // Just call this line to enable the scrolling navbar
     [self followScrollView:self.collectionView];
     [self setUseSuperview:YES];
@@ -63,6 +63,10 @@
 {
     UICollectionViewCell *cell = [self.collectionView dequeueReusableCellWithReuseIdentifier:@"exampleCell" forIndexPath:indexPath];
     return cell;
+}
+
+- (void)dealloc {
+    [self stopFollowingScrollView];
 }
 
 @end
